@@ -293,6 +293,7 @@ void rnnoise_destroy(DenoiseState *st) {
       free((opus_int16*) common.kfft->bitrev);
     }
     free(common.kfft);
+    common.init = 0;
   }
 }
 
