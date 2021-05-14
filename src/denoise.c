@@ -285,14 +285,17 @@ void rnnoise_destroy(DenoiseState *st) {
   free(st->rnn.noise_gru_state);
   free(st->rnn.denoise_gru_state);
   free(st);
-  if(common.kfft) {
+  if(common.init) {
     if(common.kfft->twiddles) {
       free((kiss_twiddle_cpx*) common.kfft->twiddles);
+      common.kfft->twiddles = NULL;
     }
     if(common.kfft->bitrev) {
       free((opus_int16*) common.kfft->bitrev);
+      common.kfft->bitrev = NULL;
     }
     free(common.kfft);
+    common.kfft = NULL;
     common.init = 0;
   }
 }
